@@ -7,6 +7,7 @@ import Project from './Page/Projects';
 import Contact from './Page/Contact';
 import Admin from './Page/Admin';
 import Login from './Page/Login/Login/Login';
+import Signup from './Page/Login/Signup';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/contact' element={<Contact></Contact>}></Route>
         <Route path='/admin' element={<Admin></Admin>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<Signup></Signup>}></Route>
       </Routes>
     </div>
   );
