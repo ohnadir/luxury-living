@@ -4,7 +4,7 @@ import Banner from '../../assests/pierre-chatel-innocenti-AlSlE8IAjZo-unsplash 1
 const Header = () => {
     return (
         <div className='bg-base-200'>
-            <div class=" max-w-7xl mx-auto px-4 py-16">
+            <div class=" max-w-7xl mx-auto px-4 py-[80px]">
                 <div class="flex flex-col gap-6 lg:flex-row-reverse justify-between items-center">
                     <img src={Banner} class=" md:max-w-xl rounded-lg shadow-2xl" />
                     <div>
