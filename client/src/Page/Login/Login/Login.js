@@ -1,12 +1,30 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../firebase.init';
 
 const Login = () => {
+    const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const [
+        signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+
+
     const onSubmit = data => {
+        signInWithEmailAndPassword(data.email, data.password);
         console.log(data)
     };
+    const handleGoogle = () => {
+        signInWithGoogle()
+    }
+
+
+
+    if (user || gUser) {
+        navigate('/home')
+    }
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className='border w-96 p-10'>
@@ -58,7 +76,7 @@ const Login = () => {
                         >
                         <p className="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
-                    <button className='border mb-2 w-full py-1 border-[#251D58] text-[#251D58] rounded-lg'>Continue With Google</button>
+                    <button onClick={handleGoogle} className='border mb-2 w-full py-1 border-[#251D58] text-[#251D58] rounded-lg'>Continue With Google</button>
                     <p className='text-sm text-right'>New to Luxury Living ? <Link className='text-red-600' to='/signup'>Signup</Link></p>
                 </form>
             </div>

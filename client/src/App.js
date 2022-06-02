@@ -5,9 +5,11 @@ import Home from './Page/Home/Home';
 import About from './Page/About';
 import Project from './Page/Projects';
 import Contact from './Page/Contact';
-import Admin from './Page/Admin';
+import Dashboard from './Page/Dashboard';
 import Login from './Page/Login/Login/Login';
 import Signup from './Page/Login/Signup';
+import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -20,10 +22,11 @@ function App() {
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/projects' element={<Project></Project>}></Route>
         <Route path='/contact' element={<Contact></Contact>}></Route>
-        <Route path='/admin' element={<Admin></Admin>}></Route>
+        <Route path='/dashboard' element={<Dashboard></Dashboard>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
         <Route path='/signup' element={<Signup></Signup>}></Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }

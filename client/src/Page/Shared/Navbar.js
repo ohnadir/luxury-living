@@ -4,18 +4,38 @@ import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CustomLink from '../Login/Login/CustomLink';
 import Logo from '../../assests/Group 33069.png'
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../Login/firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const  [user]  = useAuthState(auth);
+    console.log(user);
 
+    const handleSignOut = () => {
+        signOut(auth);
+    }
     const menuLists = <>
         <CustomLink to='/home'>Home</CustomLink>
         <CustomLink to='/about'>About</CustomLink>
         <CustomLink to='/projects'>Projects</CustomLink>
         <CustomLink to='/contact'>Contact</CustomLink>
-        <CustomLink to='/admin'>Admin</CustomLink>
-        <CustomLink to='/login'>Login</CustomLink>
+        <CustomLink to='/dashboard'>Dashboard</CustomLink>
+        {
+            user ?
+            
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="bg-[#251D58] text-white px-3 py-[5px] cursor-pointer rounded">{user.displayName}</label>
+                <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52 mt-4">
+                <li><button onClick={handleSignOut}>Sign Out</button></li>
+                </ul>
+            </div>
+            :
+            <CustomLink to='/login'>Login</CustomLink>
+        }
+        
     </>
     return (
         <div className='max-w-7xl mx-auto px-4'>

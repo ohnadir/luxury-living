@@ -1,12 +1,41 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import auth from './firebase.init'
+import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 
 const Sign = () => {
+    const navigate = useNavigate();
     const { register, formState: { errors }, handleSubmit } = useForm();
-    const onSubmit = data => {
-        console.log(data)
+    const [
+        createUserWithEmailAndPassword, user, loading, error ] = useCreateUserWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const onSubmit = async data => {
+        await  createUserWithEmailAndPassword(data.email, data.password)
+        await updateProfile({displayName: data.name})
+        toast('Updated Name')
     };
+    const handleGoogle = () => {
+        signInWithGoogle()
+    }
+
+    if (loading || gLoading || updating) {
+        return <Loading></Loading>
+    }
+
+    if (user || gUser) {
+        navigate('/home')
+    }
+
+    let signInError;
+    if (error || gError || updateError) {
+        signInError = <p className='text-red-600'><small>{gError?.message} || {error?.message} || {updateError?.message}</small></p>
+    }
     return (
         <div className='flex justify-center items-center h-screen'>
             <div className='border w-96 p-10'>
@@ -64,14 +93,15 @@ const Sign = () => {
                             {errors.password?.type === 'required' && <span className='text-red-600 text-sm'>{ errors.password.message}</span>}       
                             {errors.password?.type === 'pattern' && <span className='text-red-600 text-sm'>{ errors.password.message}</span>}       
                         </label> 
-                    </div>   
+                    </div> 
+                    {signInError}
                     <input className='bg-[#251D58] text-white w-full py-[5px] rounded-lg cursor-pointer' value='Signup' type="submit" />
                     <div
                         className="flex items-center mt-5 mb-5 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
                         >
                         <p className="text-center font-semibold mx-4 mb-0">OR</p>
                     </div>
-                    <button className='border mb-2 w-full py-1 border-[#251D58] text-[#251D58] rounded-lg'>Continue With Google</button>
+                    <button onClick={handleGoogle} className='border mb-2 w-full py-1 border-[#251D58] text-[#251D58] rounded-lg'>Continue With Google</button>
                     <p className='text-sm text-right'>Already have an Account ? <Link className='text-red-600' to='/login'>Login</Link></p>
                 </form>
             </div>
