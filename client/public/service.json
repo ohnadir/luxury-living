@@ -1,0 +1,20 @@
+[
+    {
+        "name":"Office Interior Design",
+        "info": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+        "price" : "299",
+        "img": "https://i.ibb.co/n76R9RH/apartment-1.png"
+    },
+    {
+        "name":"Showroom Design",
+        "info": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+        "price" : "399",
+        "img": "https://i.ibb.co/7bMFDVg/affordable-1.png"
+    },
+    {
+        "name":"Residential/ Home",
+        "info": "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
+        "price" : "499",
+        "img": "https://i.ibb.co/1TBVLFN/lessee-1.png"
+    }
+]
