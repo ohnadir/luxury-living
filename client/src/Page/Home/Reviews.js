@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const Review = ({review}) => {
-    const { img, name, designation, reviews, ratings, index } = review;
+    const { img, name, designation, reviews, ratings } = review;
     
     return (
         <div>

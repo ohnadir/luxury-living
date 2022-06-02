@@ -17,7 +17,7 @@ const Testimonial = () => {
         <div className='bg-base-200 '>
             <div className='max-w-7xl mx-auto px-4 pb-[80px]'>
                 <h1 className='pt-[80px] pb-[60px] text-center text-4xl font font-bold'>Testimonial</h1>
-                <div className='grid gap-5 grid-cols-3'>
+                <div className='grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
                     {
                         reviews.map(review => <Review
                             key={review._id}
