@@ -42,7 +42,7 @@ async function run() {
             const services = await serviceCollection.find().toArray();
             res.send(services);
         });
-        
+
         // get all services from database
         app.get('/services/:id', verifyToken, async (req, res) => {
             const id = req.params.id;
@@ -58,7 +58,7 @@ async function run() {
             const filter = { _id: ObjectId(id) };
             const result = await serviceCollection.deleteOne(filter);
             res.send(result);
-            console.log('Connected from Get');
+           
         });
 
         // post a single services on database
@@ -107,6 +107,16 @@ async function run() {
             const users = await usersCollection.find().toArray();
             res.send(users);
         });
+
+        // get single from database
+        app.get('/users/:id', verifyToken, async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)}
+            const result = await usersCollection.findOne(query);
+            res.send(result);
+        });
+
+        
     }
     finally {
         
