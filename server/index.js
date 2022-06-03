@@ -116,6 +116,17 @@ async function run() {
             res.send(result);
         });
 
+        // make admin from usersCollection
+        app.put('/users/admin/:email', verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const filter = { email: email };
+            const updatedDoc = {
+                $set: { role: 'admin' }
+            };
+            const result = await usersCollection.updateOne(filter, updatedDoc);
+            res.send(result);
+        })
+
         // delete single data from usersCollection
         app.delete('/users/:id', verifyToken, async (req, res) => {
             const id = req.params.id;
