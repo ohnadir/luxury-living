@@ -11,35 +11,39 @@ const AddService = () => {
         const images = data.image[0];
         const formData = new FormData();
         formData.append('image', images);
+
         fetch(`https://api.imgbb.com/1/upload?key=${imgKeyStroke}`, {
-            method: 'POST',
+            method: "POST",
             body: formData
         })
         .then(res=> res.json())
-            .then(result => {
+        .then(result => {
                 if (result.success) {
                     const img = result.data.url;
                     const service = {
-                        name: data.name,
+                        name: data.title,
                         info: data.description,
-                        price: data.price,
                         img: img
                     
                 }
-            // send to database
-            fetch('http://localhost:5000/services', {
-            method: 'POST',
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            },
-            body: (service)
+             // send to database
+             fetch('http://localhost:5000/services', {
+                 method: 'POST',
+                 headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(service)
             })
-                .then(res=> res.json())
-                .then(data => {
-                    toast('Add Service Successfully')
-                    reset();
-                })
+            .then(res=> res.json())
+            .then(data => {
+                toast('Add Service Successfully')
+                reset();
+            })
                 }
+                else {
+                toast.error('Failed add Service')
+            }
+                
         })
         
         
