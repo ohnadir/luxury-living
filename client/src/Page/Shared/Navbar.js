@@ -8,6 +8,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../Login/firebase.init';
 import { signOut } from 'firebase/auth';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import { BsArrowDownShort } from 'react-icons/bs';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
@@ -33,7 +34,7 @@ const Navbar = () => {
             user ?
             
             <div className="dropdown dropdown-end">
-                <label tabIndex="0" className="bg-[#251D58] text-white px-3 py-[5px] cursor-pointer rounded">{user.displayName}</label>
+                <label tabIndex="0" className="flex items-center gap-1">{user.displayName} <BsArrowDownShort/></label>
                 <ul tabIndex="0" className="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52 mt-4">
                 <li><button onClick={handleProfile}>Update Profile Picture</button></li>
                 <li><button onClick={handleSignOut}>Sign Out</button></li>

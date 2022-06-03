@@ -23,6 +23,7 @@ const AddService = () => {
                     const service = {
                         name: data.title,
                         info: data.description,
+                        price: data.price,
                         img: img
                     
                 }
@@ -54,7 +55,7 @@ const AddService = () => {
             <form onSubmit={handleSubmit(onSubmit)} className='grid grid-cols-1 gap-5 p-16'>
                     <div className='grid md:grid-cols-2 grid-cols-1 gap-5 md:gap-10'>
                         <div className=''>
-                            <label htmlFor="">Service Name</label><br />
+                            <label htmlFor="" className='mb-2'>Service Name</label><br />
                             <input
                                 type='text'
                                 className='py-[5px] w-full px-2 bg-slate-100 border border-[#CFCFCF] rounded-lg outline-none'
@@ -83,25 +84,43 @@ const AddService = () => {
                         </div>
                     </div>
 
-                    <div className=''>
-                        <label htmlFor="">Description</label><br />
-                        <textarea
-                            type='text'
-                            rows="4" cols="60"
-                            className='py-[5px] w-full px-2 bg-slate-100 border border-[#CFCFCF] rounded-lg outline-none'
-                            placeholder='Enter Description'
-                            {...register("description", {
-                                required: {
-                                    value: true,
-                                    message: 'Description is required'
-                                }
-                            })} />
-                        <p>{errors.description?.type === 'required' && <span className='text-red-600 text-sm'>{ errors.description.message}</span>}</p>
+                    <div className='grid md:grid-cols-2 grid-cols-1 gap-5 md:gap-10'>
+                        <div className=''>
+                            <label htmlFor="">Description</label><br />
+                            <textarea
+                                type='text'
+                                rows="3" cols="40"
+                                className='py-[5px] w-full px-2 bg-slate-100 border border-[#CFCFCF] rounded-lg outline-none'
+                                placeholder='Enter Description'
+                                {...register("description", {
+                                    required: {
+                                        value: true,
+                                        message: 'Description is required'
+                                    }
+                                })} />
+                            <p>{errors.description?.type === 'required' && <span className='text-red-600 text-sm'>{ errors.description.message}</span>}</p>
+                        </div>
+                        <div className=''>
+                            <label htmlFor="">Price</label><br />
+                            <input
+                                type='number'
+                                rows="4" cols="60"
+                                className='py-[5px] w-full px-2 bg-slate-100 border border-[#CFCFCF] rounded-lg outline-none'
+                                placeholder='Enter Price'
+                                {...register("price", {
+                                    required: {
+                                        value: true,
+                                        message: 'Price is required'
+                                    }
+                                })} />
+                            <p>{errors.price?.type === 'required' && <span className='text-red-600 text-sm'>{ errors.price.message}</span>}</p>
+                        </div>
                     </div>
-                    <div className='flex justify-end'>
-                    <input className='bg-[#251D58]  w-2/4 text-white  py-[5px] rounded-lg cursor-pointer' value='Submit' type="submit" />
+
+                    <div className='flex justify-center mt-5'>
+                        <input className='bg-[#251D58]  w-2/4 text-white  py-[5px] rounded-lg cursor-pointer' value='Submit' type="submit" />
                     </div>
-                </form>
+            </form>
             </div>
         </div>
     );
