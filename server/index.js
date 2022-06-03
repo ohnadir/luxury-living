@@ -2,7 +2,7 @@ const express = require('express')
 const cors = require('cors')
 require('dotenv').config()
 const jwt = require('jsonwebtoken');
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -42,6 +42,14 @@ async function run() {
             const services = await serviceCollection.find().toArray();
             res.send(services);
         });
+        // get all services from database
+        app.get('/services/:id', verifyToken, async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)}
+            const result = await serviceCollection.findOne(query);
+            res.send(result);
+            console.log('Connected from Get');
+        });
 
         // post a single services on database
         app.post('/services', async (req, res) => {
@@ -67,7 +75,7 @@ async function run() {
             const review = req.body;
             const result = await reviewsCollection.insertOne(review);
             res.send(result);
-            console.log('Connected from post reviews');
+            
         });
 
         // post all user to database 
