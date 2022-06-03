@@ -17,7 +17,6 @@ const RemoveServiceModal = ({ removeService, setRemoveService, refetch }) => {
     } 
 
     const handelRemoveService = (id) => {
-        console.log(id);
         fetch(`http://localhost:5000/services/${id}`, {
             method: 'DELETE',
             headers: {

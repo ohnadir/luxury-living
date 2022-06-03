@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Shared/Loading';
+import { toast } from 'react-toastify';
 import RemoveUserModal from './RemoveUserModal';
 
 const MakeAdmin = () => {
@@ -19,11 +20,20 @@ const MakeAdmin = () => {
     if (isLoading) {
         return <Loading/>  
     }
-
-    /* const handleRemoveUser = (id) => {
-        console.log(id);
-        setRemoveUser(id);
-    } */
+    const handleMakeAdmin = (email) => {
+        fetch(`http://localhost:5000/users/admin/${email}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json',
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            refetch();
+            toast('Create Admin Successfully');
+        })
+    }
     return (
         <div>
             <div className='bg-white p-6  rounded-lg'>
@@ -43,27 +53,36 @@ const MakeAdmin = () => {
                                     
                                     <th>{index+1}</th>
                                     <td>{user.email}</td>
-                                    <td><button className='bg-[#251D58] rounded-lg text-white px-3 py-[5px]'>Make Admin</button></td>
+                                    <td>
+                                        {
+                                            user.role && <button
+                                                onClick={()=>handleMakeAdmin(user?.email)}
+                                                className='bg-[#251D58] rounded-lg text-white px-3 py-[5px]'>
+                                                Make Admin
+                                            </button>
+                                        }
+                                    </td>
                                     <td>
                                         <label
                                             htmlFor="userRemoveModal"
-                                            onClick={()=>setRemoveUser(user?._id)} className='bg-[#251D58] rounded-lg text-white px-3 py-[5px]'
+                                            onClick={() => setRemoveUser(user?._id)}
+                                            className='bg-[#251D58] cursor-pointer rounded-lg text-white px-3 py-[5px]'
                                         >Remove</label>
                                     </td>
                                 </tr>)
                             }
-
-                            {
-                                removeUser && <RemoveUserModal
-                                    setRemoveUser={setRemoveUser}
-                                    removeUser={removeUser}
-                                    refetch={refetch}
-                                >
-                                </RemoveUserModal>
-                            }
                         </tbody>
                     </table>
+                    
                 </div>
+                {
+                        removeUser && <RemoveUserModal
+                            setRemoveUser={setRemoveUser}
+                            removeUser={removeUser}
+                            refetch={refetch}
+                        >
+                        </RemoveUserModal>
+                    }
             </div>
         </div>
     );
