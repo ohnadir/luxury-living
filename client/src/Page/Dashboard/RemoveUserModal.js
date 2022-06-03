@@ -1,14 +1,14 @@
 import React from 'react';
 
-const RemoveUserModal = ({ id, refetch }) => {
-    console.log(id);
+const RemoveUserModal = ({ removeUser, setRemoveUser,  refetch }) => {
+    console.log(removeUser);
     return (
         <div>
             
             <input type="checkbox" id="userRemoveModal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box relative">
-                    <h3 className="text-lg font-bold mb-3">Remove User {id}</h3>
+                    <h3 className="text-lg font-bold mb-3">Remove User{removeUser}</h3>
                     <div className='bg-red-100 px-4'>
                         <p className="py-4 text-red-700 font-semibold">After you remove this user, it's permanently remove. User Can't be recover . </p>
                     </div>
