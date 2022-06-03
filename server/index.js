@@ -42,11 +42,21 @@ async function run() {
             const services = await serviceCollection.find().toArray();
             res.send(services);
         });
+        
         // get all services from database
         app.get('/services/:id', verifyToken, async (req, res) => {
             const id = req.params.id;
             const query = {_id: ObjectId(id)}
             const result = await serviceCollection.findOne(query);
+            res.send(result);
+            
+        });
+
+        //  delete a single service 
+        app.delete('/services/:id', verifyToken, async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await serviceCollection.deleteOne(filter);
             res.send(result);
             console.log('Connected from Get');
         });
