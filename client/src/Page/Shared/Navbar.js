@@ -33,8 +33,8 @@ const Navbar = () => {
             user ?
             
             <div className="dropdown dropdown-end">
-                <label tabindex="0" className="bg-[#251D58] text-white px-3 py-[5px] cursor-pointer rounded">{user.displayName}</label>
-                <ul tabindex="0" className="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52 mt-4">
+                <label tabIndex="0" className="bg-[#251D58] text-white px-3 py-[5px] cursor-pointer rounded">{user.displayName}</label>
+                <ul tabIndex="0" className="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52 mt-4">
                 <li><button onClick={handleProfile}>Update Profile Picture</button></li>
                 <li><button onClick={handleSignOut}>Sign Out</button></li>
                 </ul>

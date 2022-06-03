@@ -5,12 +5,12 @@ const RemoveUserModal = ({ id, refetch }) => {
     return (
         <div>
             
-            <input type="checkbox" id="userRemoveModal" class="modal-toggle" />
-            <div class="modal">
-                <div class="modal-box relative">
-                    <h3 class="text-lg font-bold mb-3">Remove User {id}</h3>
+            <input type="checkbox" id="userRemoveModal" className="modal-toggle" />
+            <div className="modal">
+                <div className="modal-box relative">
+                    <h3 className="text-lg font-bold mb-3">Remove User {id}</h3>
                     <div className='bg-red-100 px-4'>
-                        <p class="py-4 text-red-700 font-semibold">After you remove this user, it's permanently remove. User Can't be recover . </p>
+                        <p className="py-4 text-red-700 font-semibold">After you remove this user, it's permanently remove. User Can't be recover . </p>
                     </div>
                     <p className='mt-5 text-[14px]'>User Account</p>
                     <p className='mt-1 text-lg'>Email</p>

@@ -19,11 +19,16 @@ const MakeAdmin = () => {
     if (isLoading) {
         return <Loading/>  
     }
+
+    /* const handleRemoveUser = (id) => {
+        console.log(id);
+        setRemoveUser(id);
+    } */
     return (
         <div>
             <div className='bg-white p-6  rounded-lg'>
-                <div class="overflow-x-auto">
-                    <table class="table border border- w-full">
+                <div className="overflow-x-auto">
+                    <table className="table border border- w-full">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -42,7 +47,7 @@ const MakeAdmin = () => {
                                     <td>
                                         <label
                                             htmlFor="userRemoveModal"
-                                            onClick={()=>setRemoveUser(user)} className='bg-[#251D58] rounded-lg text-white px-3 py-[5px]'
+                                            onClick={()=>setRemoveUser(user?._id)} className='bg-[#251D58] rounded-lg text-white px-3 py-[5px]'
                                         >Remove</label>
                                     </td>
                                 </tr>)
