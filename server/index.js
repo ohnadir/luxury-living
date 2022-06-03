@@ -116,7 +116,14 @@ async function run() {
             res.send(result);
         });
 
-        
+        // delete single data from usersCollection
+        app.delete('/users/:id', verifyToken, async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: ObjectId(id) };
+            const result = await usersCollection.deleteOne(filter);
+            res.send(result);
+            console.log('Connected from Delete');
+        })
     }
     finally {
         
