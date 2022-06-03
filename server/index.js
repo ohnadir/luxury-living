@@ -19,7 +19,7 @@ function verifyToken(req, res, next) {
         return res.status(401).send({message: 'UnAuthorization Access'})
     }
     const token = authHeader.split(' ')[1];
-    jwt.verify(token, access.env.ACCESS_TOKEN, function (err, decoded) {
+    jwt.verify(token, process.env.ACCESS_TOKEN, function (err, decoded) {
         if (err) {
             return res.status(403).send({message: 'Forbidden Access'})
         }
@@ -38,19 +38,27 @@ async function run() {
         const usersCollection = client.db("luxury-living").collection("users");
 
         // get all services from database
-        app.get('/services', async (req, res) => {
+        app.get('/services', verifyToken, async (req, res) => {
             const services = await serviceCollection.find().toArray();
             res.send(services);
         });
 
+        // post a single services on database
+        app.post('/services', verifyToken, async (req, res) => {
+            const service = req.body;
+            const services = await serviceCollection.insertOne(service);
+            res.send(services);
+            console.log("Connected from Post");
+        });
+
         // get all projects from database
-        app.get('/projects', async (req, res) => {
+        app.get('/projects', verifyToken, async (req, res) => {
             const projects = await projectCollection.find().toArray();
             res.send(projects);
         });
         
         // get all reviews from database
-        app.get('/reviews', async (req, res) => {
+        app.get('/reviews', verifyToken, async (req, res) => {
             const reviews = await reviewsCollection.find().toArray();
             res.send(reviews);
         });
@@ -69,6 +77,12 @@ async function run() {
             res.send( {result, token});
             console.log('Connected from db');
         })
+
+        // get all users from database
+        app.get('/users', verifyToken, async (req, res) => {
+            const users = await usersCollection.find().toArray();
+            res.send(users);
+        });
     }
     finally {
         
