@@ -7,15 +7,20 @@ import Logo from '../../assests/Group 33069.png'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../Login/firebase.init';
 import { signOut } from 'firebase/auth';
+import { useUpdateProfile } from 'react-firebase-hooks/auth';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const  [user]  = useAuthState(auth);
-    console.log(user);
+    const [updateProfile, updating, error] = useUpdateProfile(auth);
 
     const handleSignOut = () => {
         signOut(auth);
+    }
+    
+    const handleProfile = async(data) => {
+        await updateProfile({photoURL: data.url})
     }
     const menuLists = <>
         <CustomLink to='/home'>Home</CustomLink>
@@ -29,6 +34,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
                 <label tabindex="0" className="bg-[#251D58] text-white px-3 py-[5px] cursor-pointer rounded">{user.displayName}</label>
                 <ul tabindex="0" className="menu dropdown-content p-2 shadow bg-base-200 rounded-box w-52 mt-4">
+                <li><button onClick={handleProfile}>Update Profile Picture</button></li>
                 <li><button onClick={handleSignOut}>Sign Out</button></li>
                 </ul>
             </div>

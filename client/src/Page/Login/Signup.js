@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
@@ -7,6 +7,7 @@ import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './firebase.init'
 import Loading from '../Shared/Loading';
 import { toast } from 'react-toastify';
+import useToken from '../Hook/useToken';
 
 const Sign = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const Sign = () => {
         createUserWithEmailAndPassword, user, loading, error ] = useCreateUserWithEmailAndPassword(auth);
     const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    const [token] = useToken(user || gUser);
     const onSubmit = async data => {
         await  createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({displayName: data.name})
@@ -28,9 +30,10 @@ const Sign = () => {
         return <Loading></Loading>
     }
 
-    if (user || gUser) {
-        navigate('/home')
+    if (token) {
+        navigate('/home');
     }
+
 
     let signInError;
     if (error || gError || updateError) {
