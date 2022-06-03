@@ -125,15 +125,26 @@ async function run() {
             };
             const result = await usersCollection.updateOne(filter, updatedDoc);
             res.send(result);
+            
         })
 
+        // get admin user from usersCollection 
+        app.get('/admin/:email', verifyToken, async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            console.log(user);
+            const isAdmin = user.role === 'admin';
+            res.send({ admin: isAdmin });
+            console.log('Connected from Admin');
+        })
         // delete single data from usersCollection
         app.delete('/users/:id', verifyToken, async (req, res) => {
             const id = req.params.id;
             const filter = { _id: ObjectId(id) };
             const result = await usersCollection.deleteOne(filter);
             res.send(result);
-            console.log('Connected from Delete');
+            
         })
     }
     finally {
