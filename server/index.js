@@ -44,11 +44,11 @@ async function run() {
         });
 
         // post a single services on database
-        app.post('/services', verifyToken, async (req, res) => {
+        app.post('/services', async (req, res) => {
             const service = req.body;
             const services = await serviceCollection.insertOne(service);
             res.send(services);
-            console.log("Connected from Post");
+            console.log(service);
         });
 
         // get all projects from database
@@ -62,6 +62,8 @@ async function run() {
             const reviews = await reviewsCollection.find().toArray();
             res.send(reviews);
         });
+
+        
 
         // post all user to database 
         app.put('/users/:email', async (req, res) => {
