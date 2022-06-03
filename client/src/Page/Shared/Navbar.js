@@ -28,6 +28,7 @@ const Navbar = () => {
         <CustomLink to='/projects'>Projects</CustomLink>
         <CustomLink to='/contact'>Contact</CustomLink>
         <CustomLink to='/dashboard'>Dashboard</CustomLink>
+        <label htmlFor="dashBoardDrawer" className="btn btn-primary drawer-button lg:hidden">Open</label>
         {
             user ?
             

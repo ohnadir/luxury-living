@@ -9,12 +9,10 @@ import { Link, Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
     return (
-        <div className='pt-10 max-w-7xl mx-auto '>
-            <div className="drawer drawer-mobile">
+        <div className=' max-w-7xl mx-auto bg-[#F4F7FC]'>
+            <div className="drawer drawer-mobile ">
                 <input id="dashBoardDrawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content flex flex-col items-center ">
-                    <label htmlFor="dashBoardDrawer" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-                    <h2 className='text-2xl font-bold text-purple-500'>Welcome to your Dashboard</h2>
+                <div className="drawer-content flex flex-col p-10 ">
                     <Outlet />
                 </div> 
                 <div className="drawer-side">
