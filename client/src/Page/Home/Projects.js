@@ -5,7 +5,12 @@ import Project from './Project';
 
 const Projects = () => {
     const {data:projects , isLoading } = useQuery('projects', () =>
-        fetch('http://localhost:5000/projects').then(res =>
+        fetch('http://localhost:5000/projects', {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res =>
             res.json()
         )
     )
@@ -22,7 +27,7 @@ const Projects = () => {
             </div>
             <div className="mb-[80px] grid grid-cols-1 lg:grid-cols-3 sm:grid-cols-2 gap-6">
                 {
-                    projects.map(project => <Project
+                    projects?.map(project => <Project
                         key={project._id}
                         project={project}
                     ></Project>)

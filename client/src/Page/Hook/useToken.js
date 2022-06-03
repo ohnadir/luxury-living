@@ -9,7 +9,9 @@ const useToken = (user ) => {
         if (email) {
             fetch(`http://localhost:5000/users/${email}`, {
                 method: 'PUT',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'content-type': 'application/json'
+                },
                 body: JSON.stringify(currentUser)
             })
             .then(res=> res.json())

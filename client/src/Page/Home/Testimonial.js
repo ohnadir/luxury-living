@@ -5,7 +5,12 @@ import Review from './Reviews';
 
 const Testimonial = () => {
     const { data:reviews , isLoading } = useQuery('reviews', () =>
-        fetch('http://localhost:5000/reviews').then(res =>
+        fetch('http://localhost:5000/reviews', {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res =>
             res.json()
         )
     )
@@ -19,7 +24,7 @@ const Testimonial = () => {
                 <h1 className='pt-[80px] pb-[60px] text-center text-4xl font font-bold'>Testimonial</h1>
                 <div className='grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3'>
                     {
-                        reviews.map(review => <Review
+                        reviews?.map(review => <Review
                             key={review._id}
                             review={review}
                         ></Review>)

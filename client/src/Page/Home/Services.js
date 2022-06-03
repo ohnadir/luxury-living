@@ -6,7 +6,12 @@ import Service from './Service';
 const Services = () => {
 
     const {data:services , isLoading, error } = useQuery('services', () =>
-        fetch('http://localhost:5000/services').then(res =>
+        fetch('http://localhost:5000/services', {
+            method: 'GET',
+            headers: {
+                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        }).then(res =>
             res.json()
         )
     )
@@ -25,7 +30,7 @@ const Services = () => {
                 <h1 className='text-[34px] font-bold text-center'>We're an agency tailored to all <br /> clients' needs that always delivers</h1>
                 <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-[80px]">
                     {
-                        services.map(service => <Service
+                        services?.map(service => <Service
                             key={service._id}
                             service={service}
                         ></Service>)
