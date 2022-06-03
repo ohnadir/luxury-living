@@ -48,7 +48,6 @@ async function run() {
             const service = req.body;
             const services = await serviceCollection.insertOne(service);
             res.send(services);
-            console.log(service);
         });
 
         // get all projects from database
@@ -63,7 +62,13 @@ async function run() {
             res.send(reviews);
         });
 
-        
+        // post a single review on database
+        app.post('/reviews', async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollection.insertOne(review);
+            res.send(result);
+            console.log('Connected from post reviews');
+        });
 
         // post all user to database 
         app.put('/users/:email', async (req, res) => {
@@ -77,7 +82,6 @@ async function run() {
             const result = await usersCollection.updateOne(filter, updatedDoc, options);
             const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN);
             res.send( {result, token});
-            console.log('Connected from db');
         })
 
         // get all users from database
