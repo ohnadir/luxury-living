@@ -36,6 +36,7 @@ async function run() {
         const projectCollection = client.db("luxury-living").collection("projects");
         const reviewsCollection = client.db("luxury-living").collection("reviews");
         const usersCollection = client.db("luxury-living").collection("users");
+        const bookingCollection = client.db("luxury-living").collection("booking");
 
         // get all services from database
         app.get('/services', verifyToken, async (req, res) => {
@@ -136,7 +137,6 @@ async function run() {
             console.log(user);
             const isAdmin = user.role === 'admin';
             res.send({ admin: isAdmin });
-            console.log('Connected from Admin');
         })
         // delete single data from usersCollection
         app.delete('/users/:id', verifyToken, async (req, res) => {
@@ -145,6 +145,14 @@ async function run() {
             const result = await usersCollection.deleteOne(filter);
             res.send(result);
             
+        })
+
+        // post booking on mongoDB
+        app.post('/booking', verifyToken, async (req, res) => {
+            const booking = req.body;
+            const result = await bookingCollection.insertOne(booking);
+            res.send(result);
+            console.log('Post Data For Booking');
         })
     }
     finally {
