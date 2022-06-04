@@ -158,6 +158,15 @@ async function run() {
             const booking = await bookingCollection.find().toArray();
             res.send(booking);
         })
+
+        // get single booking from bookCollection
+        app.get('/booking/:id', verifyToken, async (req, res) => {
+            const id = req.params.id;
+            const query = {_id: ObjectId(id)}
+            const booking = await bookingCollection.findOne(query);
+            res.send(booking);
+            console.log('Connected from single booking from bookingCollection')
+        })
     }
     finally {
         
