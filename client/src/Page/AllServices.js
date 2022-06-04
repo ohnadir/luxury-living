@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
-import Loading from '../Shared/Loading';
-import RemoveServiceModal from './RemoveServiceModal';
+import BookingModal from './BookingModal';
+import Loading from './Shared/Loading';
 
-const ManageService = () => {
-    const [removeService, setRemoveService] = useState(null);
-    const {data:services , isLoading, refetch } = useQuery('services', () =>
+const AllServices = () => {
+    const [booking, setBooking] = useState(null);
+    const {data:AllServices , isLoading} = useQuery('allServices', () =>
         fetch('http://localhost:5000/services', {
             method: 'GET',
             headers: {
@@ -17,11 +17,10 @@ const ManageService = () => {
     )
 
     if (isLoading) {
-        return <Loading/>  
-    } 
+        return <Loading/>
+    }
     return (
-        <div>
-            <div>
+        <div className='max-w-7xl mx-auto px-4 my-16'>
             <div className='bg-white p-6  rounded-lg'>
                 <div className="overflow-x-auto">
                     <table className="table border border- w-full">
@@ -31,12 +30,12 @@ const ManageService = () => {
                                 <th>Images</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Criteria</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                services?.map((service, index) => <tr key={service._id}>
+                                AllServices?.map((service, index) => <tr key={service._id}>
                                     <th>{index + 1}</th>
                                     
                                     <td>
@@ -52,30 +51,28 @@ const ManageService = () => {
                                     <td>${service.price}</td>
                                     <td>
                                         <label
-                                            onClick={()=>setRemoveService(service)}
-                                            htmlFor="removeServiceModal"
-                                            className='bg-[#251D58] cursor-pointer rounded-lg text-white px-3 py-[5px]'
-                                            >Remove
+                                            onClick={()=>setBooking(service)}
+                                            htmlFor="bookingModal"
+                                            className='bg-slate-800 cursor-pointer rounded-lg text-white px-4 py-[9px]'
+                                            >Booking
                                         </label>
                                     </td>
                                 </tr>)
                             }
 
                             {
-                                removeService && <RemoveServiceModal
-                                    setRemoveService={setRemoveService}
-                                    removeService={removeService}
-                                    refetch={refetch}
+                                booking && <BookingModal
+                                    setBooking={setBooking}
+                                    booking={booking}
                                 >
-                                </RemoveServiceModal>
+                                </BookingModal>
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-            </div>
         </div>
     );
 };
 
-export default ManageService;
+export default AllServices;

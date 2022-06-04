@@ -65,7 +65,7 @@ const MakeAdmin = () => {
                                     <td>
                                         <label
                                             htmlFor="userRemoveModal"
-                                            onClick={() => setRemoveUser(user?._id)}
+                                            onClick={() => setRemoveUser(user)}
                                             className='bg-[#251D58] cursor-pointer rounded-lg text-white px-3 py-[5px]'
                                         >Remove</label>
                                     </td>

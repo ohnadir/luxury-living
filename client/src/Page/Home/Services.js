@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import Loading from '../Shared/Loading';
 import Service from './Service';
 
@@ -37,7 +38,7 @@ const Services = () => {
                     }
                 </div>
                 <div className='text-center'>
-                    <button className='mt-[68px] bg-[#251D58] w-[170px] h-[50px]  text-white'>Explore more</button>
+                    <Link to='/allServices'><button className='mt-[68px] bg-[#251D58] w-[170px] h-[50px]  text-white'>Explore more</button></Link>
                 </div>
             </div>
         </div>

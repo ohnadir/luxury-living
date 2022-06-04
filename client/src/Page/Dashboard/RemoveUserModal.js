@@ -1,21 +1,8 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import { toast } from 'react-toastify';
-import Loading from '../Shared/Loading';
 
 const RemoveUserModal = ({ removeUser, setRemoveUser, refetch }) => {
-    const {data:user , isLoading } = useQuery('user', () =>
-        fetch(`http://localhost:5000/users/${removeUser}`, {
-            method: 'GET',
-            headers: {
-                'authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        }).then(res=> res.json())
-    )
-    if (isLoading) {
-        return <Loading/>  
-    } 
-
+    const { email, _id } = removeUser;
     const handelRemoveUser = (id) => {
         fetch(`http://localhost:5000/users/${id}`, {
             method: 'DELETE',
@@ -42,11 +29,11 @@ const RemoveUserModal = ({ removeUser, setRemoveUser, refetch }) => {
                         <p className="py-4 text-red-700 font-semibold">After you remove this user, it's permanently remove. User Can't be recover . </p>
                     </div>
                     <p className='mt-5 text-[14px]'>User Account</p>
-                    <p className='mt-1 text-lg'>{user?.email}</p>
+                    <p className='mt-1 text-lg'>{email}</p>
 
                     <div className='flex justify-end items-center gap-5 mt-3'>
                         <label htmlFor="userRemoveModal" className="cursor-pointer">Cancel</label>
-                        <button onClick={()=>handelRemoveUser(user?._id)} className='bg-red-700 px-3 py-1 rounded-lg text-white'>Remove</button>
+                        <button onClick={()=>handelRemoveUser(_id)} className='bg-red-700 px-3 py-1 rounded-lg text-white'>Remove</button>
                     </div>
                 </div>
             </div>

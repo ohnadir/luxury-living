@@ -17,6 +17,7 @@ import OrderList from './Page/Dashboard/OrderList';
 import AddService from './Page/Dashboard/AddService';
 import MakeAdmin from './Page/Dashboard/MakeAdmin';
 import ManageService from './Page/Dashboard/ManageService';
+import AllServices from './Page/AllServices';
 
 
 function App() {
@@ -24,23 +25,24 @@ function App() {
     <div className="App">
       <Navbar></Navbar>
       <Routes>
-        <Route path='/' element={<Home></Home>}></Route>
-        <Route path='/home' element={<Home></Home>}></Route>
-        <Route path='/about' element={<About></About>}></Route>
-        <Route path='/projects' element={<Project></Project>}></Route>
-        <Route path='/contact' element={<Contact></Contact>}></Route>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/home' element={<Home/>}></Route>
+        <Route path='/about' element={<About/>}></Route>
+        <Route path='/projects' element={<Project/>}></Route>
+        <Route path='/contact' element={<Contact/>}></Route>
+        <Route path='/allServices' element={<AllServices/>}></Route>
         <Route path='/dashboard' element={<Dashboard></Dashboard>}>
-          <Route index element={<Book></Book>}></Route>
-          <Route path='book' element={<Book></Book>}></Route>
-          <Route path='bookList' element={<BookingList></BookingList>}></Route>
-          <Route path='review' element={<Review></Review>}></Route>
+          <Route index element={<Book/>}></Route>
+          <Route path='book' element={<Book/>}></Route>
+          <Route path='bookList' element={<BookingList/>}></Route>
+          <Route path='review' element={<Review/>}></Route>
           <Route path='orderList' element={<OrderList/>}></Route>
           <Route path='addService' element={<AddService/>}></Route>
           <Route path='makeAdmin' element={<MakeAdmin/>}></Route>
           <Route path='manageService' element={<ManageService/>}></Route>
         </Route>
-        <Route path='/login' element={<Login></Login>}></Route>
-        <Route path='/signup' element={<Signup></Signup>}></Route>
+        <Route path='/login' element={<Login/>}></Route>
+        <Route path='/signup' element={<Signup/>}></Route>
       </Routes>
       <ToastContainer />
     </div>

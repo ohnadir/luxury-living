@@ -6,7 +6,6 @@ import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from './firebase.init'
 import Loading from '../Shared/Loading';
-import { toast } from 'react-toastify';
 import useToken from '../Hook/useToken';
 
 const Sign = () => {
@@ -20,7 +19,6 @@ const Sign = () => {
     const onSubmit = async data => {
         await  createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({displayName: data.name})
-        toast('Updated Name')
     };
     const handleGoogle = () => {
         signInWithGoogle()
