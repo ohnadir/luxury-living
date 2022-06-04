@@ -134,7 +134,6 @@ async function run() {
             const email = req.params.email;
             const query = { email: email };
             const user = await usersCollection.findOne(query);
-            console.log(user);
             const isAdmin = user.role === 'admin';
             res.send({ admin: isAdmin });
         })
@@ -152,7 +151,12 @@ async function run() {
             const booking = req.body;
             const result = await bookingCollection.insertOne(booking);
             res.send(result);
-            console.log('Post Data For Booking');
+        })
+
+        // get booking from bookCollection
+        app.get('/booking', verifyToken, async (req, res) => {
+            const booking = await bookingCollection.find().toArray();
+            res.send(booking);
         })
     }
     finally {
